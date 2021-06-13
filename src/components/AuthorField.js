@@ -1,16 +1,26 @@
-import React from "react";
+import React, { useContext } from "react";
 import { TextField } from "@material-ui/core";
+import FormContext from "../Context/FormContext";
+import { ADD_AUTHOR } from "../Context/Types";
 
-function AuthorField({ value, onChangeHandler }) {
+function AuthorField() {
+  const { formData, dispatch } = useContext(FormContext);
+  const { author } = formData;
   return (
     <TextField
       fullWidth
       type="text"
-      label="Recipe Author"
+      label="Author"
       name="author"
-      placeholder="Enter Recipe author"
-      value={value}
-      onChange={onChangeHandler}
+      value={author.value}
+      error={author.error}
+      helperText={author.errorText}
+      onChange={(e) => {
+        dispatch({
+          type: ADD_AUTHOR,
+          payload: e.target.value,
+        });
+      }}
       autoComplete="off"
     />
   );

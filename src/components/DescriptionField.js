@@ -1,20 +1,29 @@
-import React from "react";
+import React, { useContext } from "react";
 import { TextField } from "@material-ui/core";
+import FormContext from "../Context/FormContext";
+import { ADD_DESCRIPTION } from "../Context/Types";
 
-function DescriptionField({ value, onChangeHandler }) {
+function DescriptionField() {
+  const { formData, dispatch } = useContext(FormContext);
+  const { description } = formData;
   return (
     <TextField
       fullWidth
       type="text"
-      label="Recipe Description"
+      label="Description"
       name="description"
-      placeholder="Enter Recipe Description"
-      value={value}
-      error={false}
+      value={description.value}
       multiline
       rows="4"
-      onChange={onChangeHandler}
       autoComplete="off"
+      error={description.error}
+      helperText={description.errorText}
+      onChange={(e) => {
+        dispatch({
+          type: ADD_DESCRIPTION,
+          payload: e.target.value,
+        });
+      }}
     />
   );
 }

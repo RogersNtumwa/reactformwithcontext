@@ -13,7 +13,6 @@ function RecipeState({ children }) {
   const [state, dispatch] = useReducer(RecipeReducer, initialState);
 
   const addRecipe = async (recipe) => {
-    console.log(recipe);
     try {
       const response = await Firebase.addRecipe(recipe);
       dispatch({

@@ -1,12 +1,15 @@
 import React from "react";
-import AddRecipe from "./Screens/AddRecipe";
 import RecipeState from "./Context/RecipeState";
+import AddRecipeForm from "./Screens/AddRecipeform";
+import FormState from "./Context/FormState";
 
 function App() {
   return (
     <div className="App">
       <RecipeState>
-        <AddRecipe />
+        <FormState>
+          <AddRecipeForm />
+        </FormState>
       </RecipeState>
     </div>
   );
