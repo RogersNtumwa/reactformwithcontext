@@ -5,10 +5,14 @@ import {
   NAME_ERROR,
   AUTHOR_ERROR,
   DESCRIPTION_ERROR,
+  CLEAR_DESC_FIELD,
+  CLEAR_NAME_FIELD,
+  CLEAR_AUTHOR_FIELD,
 } from "./Types";
 
 const FormReducer = (state, action) => {
   switch (action.type) {
+    // Name field
     case ADD_NAME:
       return {
         ...state,
@@ -23,10 +27,21 @@ const FormReducer = (state, action) => {
         name: {
           ...state.name,
           error: true,
-          errorText: "Recipe name is required",
+          errorText: action.payload,
         },
       };
 
+    case CLEAR_NAME_FIELD:
+      return {
+        ...state,
+        name: {
+          ...state.name,
+          error: false,
+          errorText: "",
+        },
+      };
+
+    // author field
     case ADD_AUTHOR:
       return {
         ...state,
@@ -39,11 +54,22 @@ const FormReducer = (state, action) => {
       return {
         ...state,
         author: {
-          ...state.name,
+          ...state.author,
           error: true,
-          errorText: "Author is required",
+          errorText: action.payload,
         },
       };
+    case CLEAR_AUTHOR_FIELD:
+      return {
+        ...state,
+        author: {
+          ...state.author,
+          error: false,
+          errorText: "",
+        },
+      };
+
+    // Description field
     case ADD_DESCRIPTION:
       return {
         ...state,
@@ -56,9 +82,18 @@ const FormReducer = (state, action) => {
       return {
         ...state,
         description: {
-          ...state.name,
+          ...state.description,
           error: true,
-          errorText: "Recipe description is required",
+          errorText: action.payload,
+        },
+      };
+    case CLEAR_DESC_FIELD:
+      return {
+        ...state,
+        description: {
+          ...state.description,
+          error: false,
+          errorText: "",
         },
       };
     default:

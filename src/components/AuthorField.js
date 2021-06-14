@@ -1,10 +1,11 @@
 import React, { useContext } from "react";
 import { TextField } from "@material-ui/core";
 import FormContext from "../Context/FormContext";
-import { ADD_AUTHOR } from "../Context/Types";
+import { ADD_AUTHOR, AUTHOR_ERROR, CLEAR_AUTHOR_FIELD } from "../Context/Types";
 
 function AuthorField() {
-  const { formData, dispatch } = useContext(FormContext);
+  const { formData, dispatch, test, checkErrorOnblur } =
+    useContext(FormContext);
   const { author } = formData;
   return (
     <TextField
@@ -13,15 +14,23 @@ function AuthorField() {
       label="Author"
       name="author"
       value={author.value}
-      error={author.error}
-      helperText={author.errorText}
+      {...(test && {
+        error: author.error,
+        helperText: author.errorText,
+      })}
+      autoComplete="off"
       onChange={(e) => {
         dispatch({
           type: ADD_AUTHOR,
           payload: e.target.value,
         });
       }}
-      autoComplete="off"
+      onBlur={() => checkErrorOnblur(author, "Author", AUTHOR_ERROR, 3)}
+      onFocus={(e) => {
+        dispatch({
+          type: CLEAR_AUTHOR_FIELD,
+        });
+      }}
     />
   );
 }

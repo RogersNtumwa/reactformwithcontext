@@ -35,7 +35,7 @@ function AddRecipeForm() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (validate()) {
+    if (validate({ name, author, description })) {
       addRecipe({ name, author, description });
     }
   };
